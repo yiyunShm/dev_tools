@@ -1,0 +1,44 @@
+.DS_Store
+.history
+.dw_store
+
+# npm
+node_modules
+
+# local env files
+.env.local
+.env.*.local
+
+# build
+app/dist
+app/public/src
+release
+build/build-dist
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Lock files
+package-lock.json
+yarn.lock
+
+# Editor directories and files
+.idea
+#.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*-bak.*
+
+.tmp
+.settings
+.project
+*.log
+*.dat
+
+# dw
+scratch
