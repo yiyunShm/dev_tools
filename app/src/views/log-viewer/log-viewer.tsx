@@ -1,4 +1,6 @@
 import * as React from 'react'
+import reactDom from 'react-dom'
+
 import { ContentBox } from '@/src/components'
 import { SearchBox } from '@/src/components'
 import './log-viewer.less'
@@ -26,12 +28,27 @@ export default class LogViewer extends React.Component<{}, State> {
   infoArr: Array<Info> = []
   search: string = ''
 
+  showSearch: boolean = true
+  callFocus: boolean = false
+
   componentWillMount() {
     this.eventBind()
   }
 
   componentDidMount() {
     this.onMessage()
+  }
+
+  componentDidUpdate() {
+    if (!this.showSearch || !this.callFocus) return
+
+    this.callFocus = false
+
+    let $search: any = reactDom.findDOMNode(this.refs.$search)
+    if ($search && $search.querySelector) {
+      let $input = $search.querySelector('input')
+      $input.focus() 
+    }
   }
 
   eventBind() {
@@ -43,14 +60,20 @@ export default class LogViewer extends React.Component<{}, State> {
       if (evt.keyCode === 116) {
         _this.freshMessage()
       }
-
-      // search and jump
+      // show search component
       if (evt.ctrlKey && evt.keyCode === 70) {
-        console.log('search show')
+        _this.showSearch = true
+        _this.callFocus = true
+        _this.handleMessage()
       }
-
+      // hide search component
+      // clear search text
       if (evt.keyCode === 27) {
-        console.log('search hide')
+        if (this.showSearch) {
+          _this.showSearch = false
+          _this.search = ''
+          _this.handleMessage()
+        }
       }
     })
   }
@@ -108,8 +131,8 @@ export default class LogViewer extends React.Component<{}, State> {
   render() {
     return (
       <div className="layout">
+        { this.showSearch ? (<SearchBox ref="$search" onSearch={this.getSearch}/>) : '' }
         <ContentBox msg={this.state.msg}/>
-        <SearchBox onSearch={this.getSearch}/>
       </div>
     )
   }
