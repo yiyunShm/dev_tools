@@ -1,7 +1,7 @@
 import { BrowserWindowConstructorOptions } from 'electron'
 import { asPublicPath } from './path'
 
-export const APP_NAME = "wpstools"
+export const APP_NAME = "devtools"
 export const APP_HEAD = asPublicPath('assets/app-icon/app-head.png')
 export const APP_ICON = asPublicPath('assets/app-icon/app-icon@256.png')
 

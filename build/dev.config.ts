@@ -17,7 +17,7 @@ const devConfig = {
     mock: {
       variables: {
         API_PROTOCOL: 'http://',
-        API_HOST: 'logger.wps.cn',
+        API_HOST: 'logger.cn',
         API_BASE_PATH: '/',
       },
     },
@@ -26,7 +26,7 @@ const devConfig = {
     dev: {
       variables: {
         API_PROTOCOL: 'http://',
-        API_HOST: 'logger.wps.cn',
+        API_HOST: 'logger.cn',
         API_BASE_PATH: '/',
       },
     },
@@ -35,7 +35,7 @@ const devConfig = {
     prod: {
       variables: {
         API_PROTOCOL: 'http://',
-        API_HOST: 'logger.wps.cn',
+        API_HOST: 'logger.cn',
         API_BASE_PATH: '/',
       },
     },

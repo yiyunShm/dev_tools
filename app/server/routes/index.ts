@@ -4,7 +4,7 @@ let router = express.Router()
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  res.send('Welcome to wps_config_tools')
+  res.send('Welcome to dev_tools')
 })
 
 export default router

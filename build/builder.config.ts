@@ -47,7 +47,7 @@ const config: Configuration = {
   },
   win: {
     icon: ICON_PNG,
-    artifactName:  `biubiubiu~.exe`,
+    artifactName:  `biubiubiu.exe`,
     target: [{
       "target": "portable",
       "arch": [
@@ -87,7 +87,7 @@ const config: Configuration = {
     // 安装图标
     installerIcon: ICON_ICO,
     // 图标名称
-    shortcutName: "WPS配置调试工具",
+    shortcutName: "调试工具",
     // 卸载图标
     uninstallerIcon: ICON_ICO,
     // 安装时头部图标

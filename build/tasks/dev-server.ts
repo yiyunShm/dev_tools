@@ -105,7 +105,7 @@ function startRenderer(): Promise<webpack.Stats> {
         exConsole.error(stats.toString())
       } else {
         exConsole.success('Server renderer start')
-        electronProcess.start()
+        // electronProcess.reload()
         resolve(stats)
       }
     })

@@ -1,11 +1,11 @@
 {
-  "name": "wpstools",
-  "productName": "wpstools",
-  "appId": "wpstools",
+  "name": "devtools",
+  "productName": "devtools",
+  "appId": "devtools",
   "version": "1.0.0",
   "main": "app/dist/main.js",
   "author": "yiyun",
-  "description": "wps config tools",
+  "description": "dev tools",
   "scripts": {
     "ts:dev": "ts-node -P build/tsconfig.json build/tasks/dev-server.ts",
     "ts:build": "ts-node -P build/tsconfig.json build/tasks/build.ts",

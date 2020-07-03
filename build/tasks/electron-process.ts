@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 import electron from 'electron'
-import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
+import { spawn, exec, ChildProcessWithoutNullStreams } from 'child_process'
 import { exConsole } from '../utils'
 
 export default class ElectronProcess {
@@ -38,6 +38,16 @@ export default class ElectronProcess {
       this.isRestart = true
       this.startElectron()
     }
+  }
+
+  reload() {
+    let cmd = `${electron} --reload`
+
+    exec(cmd, (err)=>{
+      if (err) {
+        exConsole.error(err)
+      }
+    })
   }
 
   private startElectron() {
