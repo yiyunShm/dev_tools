@@ -2,6 +2,7 @@ import React from 'react'
 import './content-box.less'
 
 interface Info {
+  idx: number,
   time: any,
   appname: string,
   type: string,
@@ -16,7 +17,7 @@ export class ContentBox extends React.Component<props, {}> {
   render() {
     let infoDom = this.props.msg.map((item: Info, idx: number) => {
       return (
-        <p key={idx} className={item.type}>[{item.time}] [{item.appname}] [{item.type}] -- {item.message}</p>
+        <p key={idx} className={item.type}>{item.idx} | [{item.time}] [{item.appname}] [{item.type}] -- {item.message}</p>
       )
     })
 

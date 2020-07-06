@@ -6,6 +6,7 @@ import { SearchBox } from '@/src/components'
 import './log-viewer.less'
 
 interface Info {
+  idx: number,
   time: any,
   appname: string,
   type: string,
@@ -27,6 +28,7 @@ export default class LogViewer extends React.Component<{}, State> {
 
   infoArr: Array<Info> = []
   search: string = ''
+  lineReg: RegExp = /^\:\d+$/
 
   showSearch: boolean = true
   callFocus: boolean = false
@@ -40,14 +42,20 @@ export default class LogViewer extends React.Component<{}, State> {
   }
 
   componentDidUpdate() {
-    if (!this.showSearch || !this.callFocus) return
+    // focus to search
+    if (this.showSearch && this.callFocus) {
+      this.callFocus = false
 
-    this.callFocus = false
+      let $search: any = reactDom.findDOMNode(this.refs.$search)
+      if ($search && $search.querySelector) {
+        let $input = $search.querySelector('input')
+        $input.focus() 
+      }
+    }
 
-    let $search: any = reactDom.findDOMNode(this.refs.$search)
-    if ($search && $search.querySelector) {
-      let $input = $search.querySelector('input')
-      $input.focus() 
+    // search line
+    if (this.lineReg.test(this.search)) {
+      this.jump2line()
     }
   }
 
@@ -98,6 +106,7 @@ export default class LogViewer extends React.Component<{}, State> {
 
   parseMessage(time: number, appname: string, type: string, info: string): Info {
     return {
+      idx: this.infoArr.length,
       time: time,
       appname: appname,
       type: type,
@@ -117,7 +126,7 @@ export default class LogViewer extends React.Component<{}, State> {
   }
 
   handleMessage() {
-    if (this.search) {
+    if (this.search && !this.lineReg.test(this.search)) {
       let filterArr = this.infoArr.filter((info: Info) => {
         return info.message.indexOf(this.search) > -1
       })
@@ -128,11 +137,31 @@ export default class LogViewer extends React.Component<{}, State> {
     }
   }
 
+  jump2line() {
+    let line: number = parseInt(this.search.slice(1))
+    // clear line
+    // jump once
+    this.search = ''
+
+    let $content: any = reactDom.findDOMNode(this.refs.$content)
+    if (!($content && $content.querySelectorAll)) return
+
+    let $ps = $content.querySelectorAll('p')
+    if (!($ps && $ps.length)) return
+
+    let $p = $ps[line]
+    if (!$p) return
+
+    let childTop = $p.offsetTop
+    let $layout: any = this.refs.$layout
+    $layout.scrollTo(0, childTop)
+  }
+
   render() {
     return (
-      <div className="layout">
+      <div className="layout" ref="$layout">
         { this.showSearch ? (<SearchBox ref="$search" onSearch={this.getSearch}/>) : '' }
-        <ContentBox msg={this.state.msg}/>
+        <ContentBox ref="$content" msg={this.state.msg}/>
       </div>
     )
   }
