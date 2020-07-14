@@ -17,7 +17,9 @@ export class ContentBox extends React.Component<props, {}> {
   render() {
     let infoDom = this.props.msg.map((item: Info, idx: number) => {
       return (
-        <p key={idx} className={item.type}>{item.idx} | [{item.time}] [{item.appname}] [{item.type}] -- {item.message}</p>
+        <p key={idx}>
+          <span className="line">{item.idx}</span> <span className="time">[{item.time}]</span> <span className="name">[{item.appname}]</span> <span className={item.type}>[{item.type}]</span> <span className="text">{item.message}</span>
+        </p>
       )
     })
 
